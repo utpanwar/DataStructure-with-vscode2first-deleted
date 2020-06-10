@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CountNodes<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.CountNodes",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Graph<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.Graph",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-bfsArrayList<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.bfsArrayList",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-bfsBylist<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.bfsBylist",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-bfsMatrix<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.bfsMatrix",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-countNodesbetV<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.countNodesbetV",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-countNumOfTrees<java_72e8cc1b>",
+            "request": "launch",
+            "mainClass": "Graph.countNumOfTrees",
+            "projectName": "java_72e8cc1b"
+        }
+    ]
+}
