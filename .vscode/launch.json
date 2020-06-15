@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - findAllPath",
+            "request": "launch",
+            "mainClass": "Graph.findAllPath",
+            "projectName": "java_72e8cc1b"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

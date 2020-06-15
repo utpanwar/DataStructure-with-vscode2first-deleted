@@ -55,7 +55,7 @@ static void findpaths(ArrayList<ArrayList<Integer>> g, int src,
 	// create a queue which stores 
 	// the paths 
 //	queue<vector<int> > q; 
-    Queue q = new LinkedList<ArrayList<Integer>>();
+    Queue<ArrayList<Integer>> q = new LinkedList<ArrayList<Integer>>();
 	// path vector to store the current path 
 //	vector<int> path; 
     ArrayList<Integer> path  = new ArrayList<>();	
