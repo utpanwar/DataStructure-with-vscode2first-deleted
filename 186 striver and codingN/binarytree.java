@@ -795,8 +795,8 @@ class BinaryTree {
     }
 
 
-    15.             PRINT BOTTOM OF THE TREE 
-
+    15.                          PRINT BOTTOM OF THE TREE 
+   this is not working
     public static void botttom(BinaryTreeNode<Integer> root)
     {
         Queue<BinaryTreeNode<Integer>> q1 = new LinkedList<>();
@@ -858,6 +858,7 @@ class BinaryTree {
     }
 
 15 . B
+this works
 class Node 
 { 
     int data; //data of the node 
@@ -953,3 +954,197 @@ class Tree
         } 
     } 
 }
+
+16.                         TOP VIEW OF A TREE
+O(n)
+public static void bottom(BinaryTreeNod<Integer> root) 
+{ 
+    if (root == null) 
+        return; 
+
+    // Initialize a variable 'hd' with 0 for the root element. 
+    int hd = 0; 
+
+    // TreeMap which stores key value pair sorted on key value 
+    Map<Integer, Integer> map = new TreeMap<>(); 
+
+     // Queue to store tree nodes in level order traversal 
+    Queue<BinaryTreeNod<Integer>>  queue = new LinkedList<>(); 
+
+    // Assign initialized horizontal distance value to root 
+    // node and add it to the queue. 
+    root.hd = hd; 
+    queue.add(root); 
+
+    // Loop until the queue is empty (standard level order loop) 
+    while (!queue.isEmpty()) 
+    { 
+        BinaryTreeNod<Integer>  temp = queue.remove(); 
+
+        // Extract the horizontal distance value from the 
+        // dequeued tree node. 
+        hd = temp.hd; 
+
+        // Put the dequeued tree node to TreeMap having key 
+        // as horizontal distance. Every time we find a node 
+        // having same horizontal distance we need to replace 
+        // the data in the map. 
+        if(!map.containsKey(hd))
+        map.put(hd, temp.data); 
+
+        // If the dequeued node has a left child add it to the 
+        // queue with a horizontal distance hd-1. 
+        if (temp.left != null) 
+        { 
+            temp.left.hd = hd-1; 
+            queue.add(temp.left); 
+        } 
+        // If the dequeued node has a left child add it to the 
+        // queue with a horizontal distance hd+1. 
+        if (temp.right != null) 
+        { 
+            temp.right.hd = hd+1; 
+            queue.add(temp.right); 
+        } 
+    } 
+
+    // Extract the entries of map into a set to traverse 
+    // an iterator over that. 
+    Set<Entry<Integer, Integer>> set = map.entrySet(); 
+
+    // Make an iterator 
+    Iterator<Entry<Integer, Integer>> iterator = set.iterator(); 
+
+    // Traverse the map elements using the iterator. 
+    while (iterator.hasNext()) 
+    { 
+        Map.Entry<Integer, Integer> me = iterator.next(); 
+        System.out.print(me.getValue()+" "); 
+    } 
+} 
+}
+
+// 1 2 3 -1 4 -1 -1 -1 5 -1 6 -1 -1
+
+16.B try it recur version
+https://www.geeksforgeeks.org/print-nodes-top-view-binary-tree/
+working in compiker  code
+class View
+{
+    // function should print the topView of the binary tree
+    static void topView(Node root)
+    {
+       class QueueObj
+        {
+            Node node;
+            int hd;
+            QueueObj(Node node,int hd)
+            {
+             this.node = node;
+             this.hd = hd; 
+            }
+        }        
+          Queue<QueueObj> q = new LinkedList<QueueObj>();
+          Map<Integer , Node> map1 = new TreeMap<>();
+          q.add(new QueueObj(root,0));
+        
+        
+        while(!q.isEmpty())
+        {
+            QueueObj ele = q.poll();
+            
+            if(!map1.containsKey(ele.hd))
+            {
+                map1.put(ele.hd , ele.node);
+            }
+            
+            if(ele.node.left!=null)
+            {
+              q.add(new QueueObj(ele.node.left,ele.hd-1));   
+            }
+            if(ele.node.right!=null)
+            {
+                q.add(new QueueObj(ele.node.right,ele.hd+1));
+            }
+        }
+        for(Map.Entry<Integer,Node> me:map1.entrySet()){
+            System.out.print(me.getValue().data+" ");
+        }
+    }
+}
+
+
+17.                             FIND LCA
+
+18.                             TREES ARE IDENTICAL OR NOT
+https://www.geeksforgeeks.org/write-c-code-to-determine-if-two-trees-are-identical/
+(n) < O(m) = O(n)
+boolean identicalTrees(Node a, Node b)  
+    { 
+      if(a==null && b== null )
+       return true;
+       
+
+    //    if(a.data!=b.data)
+    //     return false;
+
+        if( a!=null && b!=null )
+            return
+     (a.data==b.data identicalTrees(a.left,b.left) && identicalTrees(a.right,b.right));
+    return false;
+    }    
+
+19.                              MAXIMUMM PATH SUM
+o(N)   
+https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/                
+int findMaxUtil(Node node, Res res) 
+    { 
+  
+        // Base Case 
+        if (node == null) 
+            return 0; 
+  
+        // l and r store maximum path sum going through left and 
+        // right child of root respectively 
+        int l = findMaxUtil(node.left, res); 
+        int r = findMaxUtil(node.right, res); 
+  
+        // Max path for parent call of root. This path must 
+        // include at-most one child of root 
+        int max_single = Math.max(Math.max(l, r) + node.data, 
+                                  node.data); 
+  
+  
+        // Max Top represents the sum when the Node under 
+        // consideration is the root of the maxsum path and no 
+        // ancestors of root are there in max sum path 
+        int max_top = Math.max(max_single, l + r + node.data); 
+  
+        // Store the Maximum Result. 
+        res.val = Math.max(res.val, max_top); 
+  
+        return max_single; 
+    }     
+
+
+    20.                     FLATTERBNN A BINARRY TREE INTO LINKED LIST
+    https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+    https://www.youtube.com/watch?v=vssbwPkarPQ
+    O(n)
+    while(!s.isEmpty())
+    {
+        Stack<TreeNode> node = s.pop();
+        if(node.right!=null)
+        {
+            s.push(node.right);
+        }
+        if(node.left!=null)
+        {
+            s.push(node.left);
+        }
+        if(!s.isEmpty())
+        {
+            node.right = s.peek();
+        }
+        node.left = null;
+    }
