@@ -1075,7 +1075,69 @@ class View
 
 
 17.                             FIND LCA
+https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+if(both values are available)
+time is O(n);
+but it do two times traversal
+class Solution {
+    static ArrayList<TreeNode> arr1 = new ArrayList<>();
+    static ArrayList<TreeNode> arr2 = new ArrayList<>();
+     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+         if(root==null) return root;
+         
+         if(lowestCommonAncestorH(root,p,arr1) && lowestCommonAncestorH(root,q,arr2))
+         {
+             int i; 
+             for (i = 0; i < arr1.size() && i < arr2.size(); i++)
+             { 
+               
+               if (!arr1.get(i).equals(arr2.get(i))) 
+                     break; 
+              } 
+             return arr1.get(i-1);
+         }
+             return root;
+     }
+     
+    public static boolean  lowestCommonAncestorH(TreeNode root,TreeNode n,                                                                ArrayList<TreeNode> arr)
+    {
+        if(root==null) return false;
+        arr.add(root);
+        if(root.val==n.val) return true;
+        if(root.left==null && root.right==null) return false;
+        if(lowestCommonAncestorH(root.left,n,arr)) return true;
+        arr.remove(arr.size()-1);
+        if(lowestCommonAncestorH(root.right,n,arr)) return true;
+        arr.remove(arr.size()-1);
+        return false;
+    }
+ }
 
+ 17.B
+ O(n)
+ best approach but not works in onE value is not there 
+ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null) 
+            return null; 
+
+        if (root.val == p.val || root.val == q.val) 
+            return root; 
+  
+        TreeNode left_lca = lowestCommonAncestor(root.left, p,q); 
+        TreeNode right_lca = lowestCommonAncestor(root.right, p,q); 
+  
+        if (left_lca!=null && right_lca!=null) 
+            return root; 
+  
+        return (left_lca != null) ? left_lca : right_lca; 
+}
+}
+
+
+17.D 
+leetcode solution iterative
+
+ 
 18.                             TREES ARE IDENTICAL OR NOT
 https://www.geeksforgeeks.org/write-c-code-to-determine-if-two-trees-are-identical/
 (n) < O(m) = O(n)
