@@ -100,6 +100,12 @@ ye qns queueu k alawa two stack se bhi kiya ja sakata hai
 https://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/  
 
 
+
+
+
+
+
+
 2.                          SEARCH A NODE IN BST
 best - O(logh)
 worst in skewed tree O(n)
@@ -116,6 +122,8 @@ public Node search(Node root, int key)
 } 
 
 
+
+
 3.                      MAKE A BST FROM PREORDER
 https://www.geeksforgeeks.org/construct-bst-from-given-preorder-traversa/
 do again you have see this
@@ -127,6 +135,13 @@ Node constructTreeUtil(int pre[], Index preIndex, int low, int high, int size) {
 
 
 }
+
+
+
+
+
+
+
 
 4.                  CHECK A BT IS A BST OR NOT
 
@@ -158,12 +173,20 @@ int isBST(Node node)
 https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
 
 
+
+
+
+
+
+
+
+
 5.                               LCA IN BST
 LEETCODE ITERATIVE  
 Time Complexity : O(N)O(N), where NN is the number of nodes
  in the BST. In the worst case we might be visiting all the nodes of the BST.
-
-Space Complexity : O(1)O(1).            
+best - O(h)
+Space Complexity : O(1) constant.            
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 
@@ -196,14 +219,52 @@ class Solution {
         return null;
     }
   
- 5.B
+5.B
 leet code solution most faster
 O(n) in worst
-log(n) in best 
+O(h) in best 
+O(1) if ignore stack
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
      if(root.val < p.val && root.val < q.val) return lowestCommonAncestor(root.right, p, q);
      if(root.val > p.val && root.val > q.val) return lowestCommonAncestor(root.left , p, q);
         return root;
     }
-}   
+}  
+
+
+
+
+
+
+
+
+
+
+
+6.                                INORDER SUCCESSER IN  A BST
+
+Node ins(Node root, int k)
+{
+    if(root==null) return root;
+
+    if(root.val == k) return root;
+    Node lcl = null;
+    if(k < root.val) 
+    {
+        store = root.val;
+       lcl= ins(root.left,k);
+    }
+    else
+    lcl = ins(root.right,k);
+
+    if(lcl!=null)
+    {
+        if(lcl.right!=null) return lcl.right;
+        if(lcl.right == null && root.val > lcl.val) return store;
+        else return store;
+    }
+    return lcl;
+}
+
+

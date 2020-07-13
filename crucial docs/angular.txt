@@ -1,0 +1,88 @@
+You need to implement a custom pipe to do this. ngFor only supports array and not object.
+
+This pipe will look like that:
+
+@Pipe({name: 'keys'})
+export class KeysPipe implements PipeTransform {
+  transform(value, args:string[]) : any {
+    let keys = [];
+    for (let key in value) {
+      keys.push({key: key, value: value[key]});
+    }
+    return keys;
+  }
+}
+
+
+
+
+<div class="row">	<div class="row">
+    <div class="col-md-6">	    <div class="col-md-6">
+        <form #f="ngForm" (ngSubmit) = "save(f.value)">	        <form #f="ngForm" (ngSubmit) = "save(f.value)">
+            <div class="form-group">	            <div class="form-group">
+                <label for="title">Title</label>	                <label for="title">Title</label>
+                <input #title="ngModel" ngModel name ="title" id="title" type="text" class="form-control" required>	                <input #title="ngModel" [(ngModel)]="product.title" name ="title" id="title" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf= "title.touched && title.invalid">	                <div class="alert alert-danger" *ngIf= "title.touched && title.invalid">
+                    title is required	                    title is required
+                </div>	                </div>
+            </div>	            </div>
+            <!-- <div class="form-group">	            <!-- <div class="form-group">
+                <label for="price">Price</label>	                <label for="price">Price</label>
+                <div class="input-group"> 	                <div class="input-group"> 
+                    <span class="input-group-addon">$</span>	                    <span class="input-group-addon">$</span>
+                    <input id="price" type="number" class="form-control">	                    <input id="price" type="number" class="form-control">
+                </div>	                </div>
+            </div> -- see clearly differnce works in angular 4 and below one is ofangular 8 --> 	            </div> -- see clearly differnce works in angular 4 and below one is ofangular 8 --> 
+            <div class="input-group mb-3">	            <div class="input-group mb-3">
+                <div class="input-group-prepend">	                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>	                  <span class="input-group-text">$</span>
+                </div>	                </div>
+                <input #price="ngModel" ngModel name ="price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" required>	                <input #price="ngModel" [(ngModel)]="product.price" name ="price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                <!-- <div class="input-group-append">	                <!-- <div class="input-group-append">
+                  <span class="input-group-text">.00</span>	                  <span class="input-group-text">.00</span>
+                </div> -->	                </div> -->
+            </div>	            </div>
+                <div class="alert alert-danger" *ngIf= "price.touched && price.invalid">	                <div class="alert alert-danger" *ngIf= "price.touched && price.invalid">
+                    price is required	                    price is required
+                </div>	                </div>
+        	        
+
+
+            <div class="form-group">	            <div class="form-group">
+                <label for="category">Categery</label>	                <label for="category">Categery</label>
+                <select  #category= "ngModel" ngModel name ="category"  id="category"  class="form-control" required>	                <select  #category= "ngModel" [(ngModel)]="product.category" name ="category"  id="category"  class="form-control" required>
+                    <option value=""></option>	                    <option value=""></option>
+                    <option *ngFor = "let c of category$ | async" [value]="c.key">	                    <option *ngFor = "let c of category$ | async" [value]="c.key">
+                        {{ c.payload.val().name }}	                        {{ c.payload.val().name }}
+                    </option>	                    </option>
+                    <!-- <option *ngFor = "let c of category$ | async" >	                    <!-- <option *ngFor = "let c of category$ | async" >
+                        {{ c.name }}	                        {{ c.name }}
+                    </option> -- this also works fine --> 	                    </option> -- this also works fine --> 
+                </select>	                </select>
+                <div class="alert alert-danger" *ngIf= "category.touched && category.invalid">	                <div class="alert alert-danger" *ngIf= "category.touched && category.invalid">
+                    category is required	                    category is required
+                </div>	                </div>
+            </div>	            </div>
+            <div class="form-group">	            <div class="form-group">
+                <label for="imageUrl">Image url</label>	                <label for="imageUrl">Image url</label>
+                <input #image="ngModel" ngModel name ="imageUrl"  id="imageUrl" type="text" class="form-control" required>	                <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name ="imageUrl"  id="imageUrl" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf= "image.touched && image.invalid">	                <div class="alert alert-danger" *ngIf= "imageUrl.touched && imageUrl.invalid">
+                    image is required	                    image is required
+                </div>	                </div>
+            </div>	            </div>
+
+
+            <button class="btn btn-primary">Save</button>	            <button class="btn btn-primary">Save</button>
+        </form>	        </form>
+    </div>	    </div>
+
+    <div class="col-md-6">	    <div class="col-md-6">
+        <div class="card" style="width: 18rem;">	        <div class="card" style="width: 18rem;">
+            <img [src]="image.value" class="card-img-top">	            <img [src]="product.imageUrl" class="card-img-top" *ngIf="product.imageUrl">
+            <div class="card-body">	            <div class="card-body">
+              <h5 class="card-title">{{title.value}}</h5>	              <h5 class="card-title">{{product.title}}</h5>
+              <p class="card-text">{{price.value | currency :'USD' :true}}</p>	              <p class="card-text">{{product.price | currency :'USD' :true}}</p>
+            </div>	            </div>
+          </div>	          </div>
+    </div>	    </div>
+</div>

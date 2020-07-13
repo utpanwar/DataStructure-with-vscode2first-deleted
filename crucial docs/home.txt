@@ -1,0 +1,198 @@
+Initially i am having two components:
+
+1. Initially bs-navbar.component is called its ngOnInit is called  await getCart is called in ShoppingCart Service  
+2. In shopping there is also an await statement so it called getOrcrteated method so there is no initail cartId found in local storage so it go to create method again it is also await  
+3. create() method create the **Empty shopping cart with date**  
+4. Now its time to execute the this statement **localStorage.setItem('cartId' ,result.key);**
+ but it does'nt it Now call the product.component.ts ngOninit and again going to call getCart and then getOrcreated method , create method  
+5. Why this is happening , So by now i getting two shopping cart in firebase  
+  
+Question 2:
+
+1.  Now suppose i am having items in my shopping cart in firebase when i navigate away from the product.comp.ts and again came back the it again called the **ng Oninit and through it call getCart again **  
+2. Now i call the getCart() when application loads from product.ts . so again i called this when i navigate to this  is there any workaround  
+
+  
+  
+bs-navbar.component.ts:
+
+```
+// this component manage the full navbar like dropdown logout
+
+import { async } from '@angular/core/testing';
+import { ShoppingCartService } from './../shopping-cart.service';
+// import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import { AuthService } from './../auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AppUser } from '../models/app-user';
+import * as firebase from 'firebase';
+import { ShoppingCart } from '../models/shopping-cart';
+
+@Component({
+  selector: 'app-bs-navbar',
+  templateUrl: './bs-navbar.component.html',
+  styleUrls: ['./bs-navbar.component.css']
+})
+export class BsNavbarComponent implements OnInit {
+  appUser: AppUser;
+  cart$ : Observable<ShoppingCart>;
+  constructor( private auth: AuthService,
+              private shopingService:ShoppingCartService) {}
+  logout()
+  {
+    this.auth.logout();
+  }
+
+  async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser); 
+    this.cart$ = await this.shopingService.getCart();
+  }
+}
+```  
+product.component.ts:
+```
+import { ShoppingCart } from './../models/shopping-cart';
+ //  it takes component for the category and the bootstrap cart
+import { ShoppingCartService } from './../shopping-cart.service';
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from './../category.service';
+import { ProductService } from './../product.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgControlStatusGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
+})
+export class ProductsComponent   {
+  products=[];
+  filteredProducts=[];
+  category: any;
+  cart : ShoppingCart;
+  subscribe :Subscription;
+
+  constructor(private productService : ProductService, 
+              private categoryService : CategoryService,
+              private route :ActivatedRoute ,
+              private shoppingCartService :ShoppingCartService) 
+  {
+    
+    this.productService.getAll().pipe(
+    switchMap(products => {
+      this.products=products;
+      return route.queryParamMap;
+    }))
+      .subscribe(params => 
+       { this.category = params.get('category');
+
+        this.filteredProducts = (this.category) ?
+        this.products.filter(p => p.$value.category === this.category) :
+        this.products
+      });
+      
+
+   }
+  
+   async ngOnInit(){
+     this.subscribe= (await this.shoppingCartService.getCart())
+     .subscribe(cart => this.cart = cart);
+    
+   }
+   ngOnDestroy(){
+    this.subscribe.unsubscribe();
+  }
+}
+```  
+**Shopping-cart.service.ts**  
+```import { ShoppingCart } from './models/shopping-cart';
+import { async } from '@angular/core/testing';
+import { Product } from './models/product';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { Injectable } from '@angular/core';
+import {take ,map} from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ShoppingCartService 
+{
+
+  constructor(private db: AngularFireDatabase) { }
+
+
+  create()
+  {
+    return this.db.list('/shopping-carts').push({
+      dateCreated : new Date().getTime()
+    })
+  }
+
+private getItem(cartId: string, productId: string)
+{
+    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId).snapshotChanges();
+}
+
+async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
+  {    let cartId = await this.getOrCreateCartId();
+       let ref=  this.db.object('/shopping-carts/' + cartId);
+       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log(x));
+       return ref.snapshotChanges()
+       .pipe(map( (x : any) =>
+       { 
+         const key = x.key;
+         const item = x.payload.val().items;
+         return new ShoppingCart(item);
+
+        }));
+  }
+
+  private async getOrCreateCartId() //to create a cartid or acceess the cartid 
+  {
+    let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
+    if(cartId) return cartId;
+      let result = await this.create();    //here we call create method to create a cartid and store it in local storage
+      localStorage.setItem('cartId' ,result.key);
+      return result.key;
+  }
+    
+  
+  async addToCart(product : Product){   //here we add the cart to firebase
+    this.updateItemQuantity(product,1);
+  }
+  
+  async removeFromCart(product : Product)
+  {
+    this.updateItemQuantity(product,-1);
+  }
+
+  private async updateItemQuantity(product : Product,change : number)
+  {
+    let cartId = await this.getOrCreateCartId();
+    let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+    let item$ = itemRef.snapshotChanges();
+    item$.pipe(take(1)).subscribe(item=>{
+      if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
+      else itemRef.set({product:product.$value, quantity:1});
+    })
+  }
+  }
+```  
+**in the last i compile my ShoppingCart service function getOrCreatedCart return control from let result line . it never go down upto return result.key . why this is happening ?**  
+```
+private async getOrCreateCartId() //to create a cartid or acceess the cartid 
+  {
+    let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
+        if(cartId)
+        {
+          return cartId;
+        }
+          let result = await this.create();    //here we call create method to create 
+          localStorage.setItem('cartId' ,result.key);
+          return result.key;
+     
+  }```

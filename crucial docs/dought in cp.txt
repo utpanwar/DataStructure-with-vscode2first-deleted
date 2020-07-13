@@ -1,0 +1,9 @@
+what is o(1) space complexity that is not using extra space
+what is constant space
+https://stackoverflow.com/questions/10844245/meaning-of-
+the-terms-o1-space-and-without-using-extra-space
+
+
+https://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/
+what is constant exyra space
+newgen 
