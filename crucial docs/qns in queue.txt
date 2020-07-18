@@ -4,3 +4,16 @@
 
 it been a long on bech .plaese allocate me any project if possible
 kacharahi road meerut colg near icic bank kanag hospital
+https://www.geeksforgeeks.org/convert-a-given-binary-tree-to-doubly-linked-list-set-4/
+https://www.geeksforgeeks.org/design-a-stack-that-supports-getmin-in-o1-time-and-o1-extra-space/
+do from set 1 to 4
+
+
+do the id else quetion
+https://www.codesdope.com/practice/java-decide-if-or-else/
+
+my far objective do the search in stack O(logn)
+this can be done by treeMap
+
+Breadth First Search without using Queue
+

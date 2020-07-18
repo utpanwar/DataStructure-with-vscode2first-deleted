@@ -243,28 +243,308 @@ class Solution {
 
 
 6.                                INORDER SUCCESSER IN  A BST
-
-Node ins(Node root, int k)
-{
-    if(root==null) return root;
-
-    if(root.val == k) return root;
-    Node lcl = null;
-    if(k < root.val) 
-    {
-        store = root.val;
-       lcl= ins(root.left,k);
-    }
-    else
-    lcl = ins(root.right,k);
-
-    if(lcl!=null)
-    {
-        if(lcl.right!=null) return lcl.right;
-        if(lcl.right == null && root.val > lcl.val) return store;
-        else return store;
-    }
+my solution
+time complexity-O(h)
+Node store = null;
+	public Node inorderSuccessor(Node root,Node x)
+         {
+            if(root==null) return root;
+            
+            if(root.data == x.data) 
+            {
+                
+            if(root.right!=null)
+            {
+                or simply call fun over here minvalue(root.right);
+                Node tmp = root.right;
+	            		 if(tmp.left==null) return root.right;
+	            		 else
+	            		 {
+	            			 while(tmp.left!=null)
+	            			 {
+	            				 tmp =tmp.left;
+	            			 }
+	            			 return tmp;
+	            		 }
+            }
+            else return store;
+            }
+             Node lcl = null;
+                    
+          if(x.data < root.data) 
+            {
+                store = root;
+                lcl= inorderSuccessor(root.left,x);
+            }
+        else
+             lcl = inorderSuccessor(root.right,x); 
+             
+    //   if(lcl!=null)
+    //      {
+    //         if(lcl.right!=null) return lcl.right;
+    //         if(lcl.right == null && root.data > lcl.data) return store;
+    //         else return store;
+    //      }
+         
     return lcl;
+ }
+
 }
 
+
+
+7.                      FIND THE KTH SMAALEST ELEMENT INA A BST
+DO INORDER TRAVERSAL
+TIME - O(n) [FOR FORMING AN Array]+O(1)[fetching a single element from the array] 
+SPACE- O(N)[size of aaraay is n which is extra space]
+class Solution {
+    ArrayList<Integer> arr = new ArrayList<>();
+    public int kthSmallest(TreeNode root, int k) {
+       int  a  =   kthSmallestH(root,k,arr); 
+        return arr.get(k-1);
+        
+    }
+    public int kthSmallestH(TreeNode root, int k,ArrayList<Integer> arr) {
+     if(root == null) return -1;
+        
+        int a = kthSmallestH(root.left,k,arr);
+        // if(a!=-1)
+            arr.add(root.val);
+        int b =  kthSmallestH(root.right,k,arr);
+        // arr.add(root.data);
+        return 0;
+    }
+}
+
+7.B
+https://www.geeksforgeeks.org/find-k-th-smallest-element-in-bst-order-statistics-in-bst/
+time - O(n)
+space - O(h) because recursion is  a stack
+this can be done with -negative aaproACH I FAILS THERE
+class Solution {
+    int  count = 0;
+     public int kthSmallest(TreeNode root, int k) {
+         if( root==null) 
+             return 0;
+        int a = kthSmallest(root.left,k);
+        if (a != 0) 
+            return a; 
+       
+        count++; 
+        if (count == k) 
+            return root.val; 
+       
+        return  kthSmallest(root.right,k); 
+       
+     }
+ }
+
+
+ 7C.
+try to understand this code
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/discuss/729692/Clear-Java-100
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        return dfs(root, k)[0];
+    }
+    public int[] dfs(TreeNode n, int k) {
+        if (n == null) return new int[]{-1, 0};
+        int[] l = dfs(n.left, k);
+        if (l[0] != -1) return new int[]{l[0], -1};
+        else {
+            if (l[1] == k - 1) return new int[]{n.val, -1};
+            int[] r = dfs(n.right, k - l[1] - 1);
+            if (r[0] != -1) return new int[]{r[0], -1};
+            return new int[]{-1, l[1] + r[1] + 1};
+        }
+    }
+}
+
+7.D
+https://www.geeksforgeeks.org/kth-smallest-element-in-bst-using-o1-extra-space/
+do this
+
+7.E
+O(h) O(h)
+
+8.                      CONVERT BINARY TREE TO INORDER LinkedList or DLL
+both have O(n) complexity and O(h) space   
+  1. 
+    singlie list INORDER typr
+    class Solution {
+        //	Stack<TreeNode> s  = new Stack<>();
+            TreeNode prev = null;
+            TreeNode head = null;
+              public void flatten(TreeNode root) {
+                    if(root == null)
+                        return ;
+        
+                   flatten(root.left);
+                    if (prev == null)  
+                        head = root; 
+                    else
+                    { 
+                        root.left = null; 
+                        prev.right = root; 
+                    } 
+                    prev = root;
+                    flatten(root.right);
+        
+                }
+        }
+     
+     
+    1.B
+    Doubley Linked LIst inorder type
+    void BinaryTree2DoubleLinkedList(Node root)  
+    { 
+        // Base case 
+        if (root == null) 
+            return; 
+   
+        // Recursively convert left subtree 
+        BinaryTree2DoubleLinkedList(root.left); 
+   
+        // Now convert this node 
+        if (prev == null)  
+            head = root; 
+        else
+        { 
+            root.left = prev; 
+            prev.right = root; 
+        } 
+        prev = root; 
+   
+        // Finally convert right subtree 
+        BinaryTree2DoubleLinkedList(root.right); 
+    }     
+
+
+
+
+9.                      FIND A TRIPLET SUM TO ZERO IN  Balanced BINARYST    
+
+1. Ffirst we have to understand the how to find the sum of triplet in
+array in O(n^2) complexity.
+1a naive approch.
+O(n^3) and O(1);
+boolean find3Numbers(int A[], int arr_size, int sum) 
+{ 
+    int l, r; 
+
+    // Fix the first element as A[i] 
+    for (int i = 0; i < arr_size - 2; i++) { 
+
+        // Fix the second element as A[j] 
+        for (int j = i + 1; j < arr_size - 1; j++) { 
+
+            // Now look for the third number 
+            for (int k = j + 1; k < arr_size; k++) { 
+                if (A[i] + A[j] + A[k] == sum) { 
+                    System.out.print("Triplet is " + A[i] + ", " + A[j] + ", " + A[k]); 
+                    return true; 
+                } 
+            } 
+        } 
+    } 
+
+    // If we reach here, then no triplet was found 
+    return false; 
+}
+ 
+
+1.b
+https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
+must see abouve
+uses the two-pointer technique. 
+O(n^2) and space O(1);
+1.c
+using hashing
+
+NOW lets Start
+
+9.A
+The Brute Force Solution 
+time = O(n)[inorder into array] + O(n^2)[two pointers] 
+space = O(h)[recursion] + O(n) [arrayuList]+O(1);
+class Solution {
+    ststic ArrayList<Integer> arr = new ArrayList<>();
+    static public void  inorder(Node root)
+    {
+        if(root == null ) return ;
+        inorder(root.left);
+        arr.add(root.data);
+        inorder(root.right);
+        return;
+    }
+  
+   static void find triplet(int sum)
+   {
+       for(int  i= 0 ; i<arr.size()-2; i++)
+       {
+          int j = i+1;
+          int h = arr.size()-1;
+          while(j<h)
+          {
+              if(arr.get(i)+arr.get(j)+arr.get(h) ==  sum)
+              {
+                  print(a[i] + a[j]+ a[h]);
+
+              }
+              else if(arr.get(i)+arr.get(j)+arr.get(h) < sum)
+              j++;
+              else
+              h--;
+          } 
+       }
+   } 
+}  
+
+9.B
+time = O(n)[inorder into array] + O(n^2)[Hashing] 
+space = O(h)+O(n)+O(1) 
+only two pointer can be replaced with hashing
+static void find triplet(int sum)
+{
+    for(int  i = 0; i< arr.size()-1;i++)
+    {
+        HashSet<Integer> s = new HashSet<Integer>();
+        for(int j = i+1 ; j<arr.size(); j++ )
+        {
+            if (s.contains(curr_sum - A[j])) { 
+                System.out.printf("Triplet is %d, %d, %d", A[i], 
+                                  A[j], curr_sum - A[j]); 
+                return true; 
+            } 
+            s.add(A[j]); 
+        }
+    }
+}
+
+9.C 
+IMPORTANT
+CONVERT DLL
+https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/
+must do these qns in the last sugestion
+fun(root)
+{
+    Stack s =null; s.push(r.r) && s.ush(1)
+    while(size-->0)
+    {
+        tmp = s.peek();
+        if(tmp.left!=null)
+         s.push(tmp.left.right)
+         s.pushtmp.(left)
+
+
+         if(tmp.left&& r =null)
+         pop upt to 1 element 
+        
+    }
+}
+
+
+10.                    INORDER TRAVERSAL WITHOUT RECURSION
+
+11.                    BST ITERATOR
 
