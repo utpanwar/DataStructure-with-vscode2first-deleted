@@ -3,7 +3,17 @@
  edges
  2.IN DIRECTED GRAPH -and max number of edge in graph is v(v-1)  
  3. IN UNDIRECTED GRAPH v(v-1) /  2 ; beacause single edge work as a two edegs in DIRECTED gr                                                                   
-                                    
+                      
+ 
+ * we can implements garaph with 3 type of approach
+ 1. Edges class wala array
+    space - O(E^2) if(complete)
+ 2.adjeceny MATRIX
+    space - (E^2)
+ 3.adjeceny list
+  space - O(e+v);   
+
+
                                     IMPLENTATIONS  
 
 1.A                                  MATRIX

@@ -2,9 +2,13 @@ package 186 striver and codingN;
              
                     CODING NINJAS & striver
 
- 1.                FIND NODE INA TREE
+ 1.                FIND NODE IN A TREE
   O(n)
-
+complexity of all the orders(inorder , preorder ,postorder) is O(n) in binarytree
+apply preorder
+see this
+https://leetcode.com/playground/5ZjWvodJ
+how it is in logn
 https://classroom.codingninjas.com/app/classroom/me/978
 /content/14947/offering/132878/problem/1156
 public static boolean isNodePresent(BinaryTreeNode<Integer> root,int x){
@@ -111,15 +115,19 @@ public class Solution {
              return 0;
           
            h = 1+Math.max(height(root.left),height(root.right));
-          
+                            
           return h;
-          
+                  
       }
-      
+    
   }  
+2.D
+https://leetcode.com/problems/maximum-depth-of-binary-tree/discuss/745477/Java-One-Liner-100-fast
+return root==null?0:1+Math.max(maxDepth(root.left),maxDepth(root.right));
+
 
   3.                          MIRROR A BINARY TREE
-  CN O(n)
+CN O(n)
 public static void mirror(BinaryTreeNode<Integer> root){
     if(null==root)
         return;
