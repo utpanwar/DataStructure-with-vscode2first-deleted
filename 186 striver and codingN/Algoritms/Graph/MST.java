@@ -3,6 +3,14 @@ package 186 striver and codingN.graph;
 public class algosofgraph {
     
 }
+                                    NOTE
+very important for discoonected graph this convential krushkal does not works
+beacuse ek edge kaam padege so while wali condition chalegi toh jab edgee input
+array se access karege toh element hoga hi nahi
+so always rember array waale codes hamesha problem karte so arralist preffere kara karo 
+array ki jagah better null handeling hoti hai  learn from mr president
+qns hakerrank                                                                      
+
 
 1.                                  KRUSHKAL ALGO
 time complexity - 
