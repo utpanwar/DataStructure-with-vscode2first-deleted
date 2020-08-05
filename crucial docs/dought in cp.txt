@@ -7,3 +7,7 @@ the-terms-o1-space-and-without-using-extra-space
 https://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/
 what is constant exyra space
 newgen 
+
+check this codebase
+ in ajva
+https://www.hackerearth.com/submission/30128737/

@@ -9,6 +9,8 @@ behaviorsubject angular 8 how it can improve the performance
 ngviewafter
 read the rxjs library read subject
 see content projection
+hash location stragety 
+path location stragety
 						 BUY ANGULAR COURSE
 https://www.questpond.com/learn-angular-step-by-step/cid12
 https://www.youtube.com/watch?v=FV2MXOygDTM&t=122s
@@ -80,4 +82,6 @@ https://levelup.gitconnected.com/add-styles-and-formatting-to-your-console-log-m
 https://medium.com/@abhinavsharma_48007/system-design-36662ee83b81
 
 
-
+							RoutrReuseStragety
+https://stackoverflow.com/questions/42643748/angular-2-implementing-routereusestrategy
+https://stackoverflow.com/questions/41280471/how-to-implement-routereusestrategy-shoulddetach-for-specific-routes-in-angular
