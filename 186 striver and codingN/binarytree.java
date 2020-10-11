@@ -110,7 +110,7 @@ public static int height(BinaryTreeNode<Integer> root)
  O(n) beacause recur is 2T(n/2) + k
 public class Solution {
     static int h;
-      public static int height(BinaryTreeNode<Integer> root) {
+      public static int height(final BinaryTreeNode<Integer> root) {
          if(root==null)
              return 0;
           
@@ -128,15 +128,15 @@ return root==null?0:1+Math.max(maxDepth(root.left),maxDepth(root.right));
 
   3.                          MIRROR A BINARY TREE
 CN O(n)
-public static void mirror(BinaryTreeNode<Integer> root){
+public static void mirror(final BinaryTreeNode<Integer> root){
     if(null==root)
-        return;
+        return;`
     mirror(root.left);
     mirror(root.right);
     if(root.left!=null && root.right!=null)
     {
         // BinaryTreeNode<Integer> temp = root;
-        BinaryTreeNode<Integer> tmp = root.left;
+        final BinaryTreeNode<Integer> tmp = root.left;
         root.left=root.right;
         root.right=tmp;
     }
@@ -144,16 +144,16 @@ public static void mirror(BinaryTreeNode<Integer> root){
 }
 
 3.B GFG O(n)
-public static void mirror(BinaryTreeNode<Integer> root){
+public static void mirror(final BinaryTreeNode<Integer> root){
  
-    Queue<BinaryTreeNode<Integer>> q = LinkedList<>();
+    final Queue<BinaryTreeNode<Integer>> q = LinkedList<>();
     q.add(root);
     while(!q.isEmpty())
     {
 
-        BinaryTreeNode<Integer> tmp = q.peek();
+        final BinaryTreeNode<Integer> tmp = q.peek();
         q.poll();
-        BinaryTreeNode<Integer> temp = tmp.left;
+        final BinaryTreeNode<Integer> temp = tmp.left;
         tmp.left=tmp.right;
         tmp.right = temp;
         
@@ -181,10 +181,10 @@ public static int diameter(BinaryTreeNode<Integer> root)
     option1 = height(root.left) + height(root.right);
     option2 = diameter(root.left);
     option3 =diameter(root.right);
-    return Math.max(option1,Math,max(option2 option3));
+    return Math.max(option1,Math,max(final option2 option3));
 }
 int h;
-private static int height(BinaryTreeNode<Integer> root)
+private static int height(final BinaryTreeNode<Integer> root)
 {
     if(root==null)
       return 0;
@@ -213,9 +213,9 @@ E:\CN\Data Structure with java\11.binary tree
     Pair<Integer,Integer> ro = height(root.right);
     option2 = diameter(root.left);
     option3 =diameter(root.right);
-    return Math.max(option1,Math,max(option2 option3));
+    return Math.max(option1,Math,max(final option2 option3));
 
-    do it youself
+    do final it youself
 }
 
 
@@ -225,18 +225,18 @@ E:\CN\Data Structure with java\11.binary tree
    (n^2) in left skewed t(n)=T(n-1)+ kn;
 
 
-public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(int[] pre, int[] in){
+public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(final int[] pre, final int[] in){
 		
     return getTreeFromPreorderAndInorderH(pre,in,0,pre.length-1,0,in.length-1);
 
 }
 
 public static BinaryTreeNode<Integer>
-getTreeFromPreorderAndInorderH(int[] pre, int[] in,int preS,int preE,int inS,int inE){
+getTreeFromPreorderAndInorderH(final int[] pre, final int[] in,final int preS,final int preE,final int inS,final int inE){
 if(inS>inE)
     return null;
-int root = pre[preS];
-BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
+final int root = pre[preS];
+final BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
 int j=inS;
 for(int i = inS;i<inE;i++)
 {
@@ -245,16 +245,16 @@ for(int i = inS;i<inE;i++)
       if(in[i]==root)
         break;
 }
-int leftInI = inS;
-int leftEnI = j-1;
-int rightInI=j+1;
-int rightInE=inE;
+final int leftInI = inS;
+final int leftEnI = j-1;
+final int rightInI=j+1;
+final int rightInE=inE;
 
-int leftpreI = preS+1;
-int length = leftEnI - leftInI+1;
-int leftpreE = leftpreI + length-1;
-int rightpreI=leftpreE+1;
-int rightpreE=preE;
+final int leftpreI = preS+1;
+final int length = leftEnI - leftInI+1;
+final int leftpreE = leftpreI + length-1;
+final int rightpreI=leftpreE+1;
+final int rightpreE=preE;
 
 root1.left = getTreeFromPreorderAndInorderH(pre,in, leftpreI,leftpreE, leftInI,leftEnI);
 root1.right = getTreeFromPreorderAndInorderH(pre,in, rightpreI,rightpreE, rightInI,rightInE);
@@ -265,8 +265,8 @@ return root1;
 
 5.B O(n) in all cases t(n) = 2T(n/2) + k;
 https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/
-public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(int[] pre, int[] in){
-    HashMap<Integer, Integer> map1 = new HashMap<>();
+public static BinaryTreeNode<Integer> getTreeFromPreorderAndInorder(final int[] pre, final int[] in){
+    final HashMap<Integer, Integer> map1 = new HashMap<>();
 for(int i =0 ;i < in.length;i++)
 {
   map1.put(in[i],i);
@@ -276,12 +276,12 @@ for(int i =0 ;i < in.length;i++)
 }
 
 public static BinaryTreeNode<Integer>
-   getTreeFromPreorderAndInorderH(int[] pre, int[] in,int preS,
-                                  int preE,int inS,int inE, HashMap<Integer, Integer> map1){
+   getTreeFromPreorderAndInorderH(final int[] pre, final int[] in,final int preS,
+                                  final int preE,final int inS,final int inE, final HashMap<Integer, Integer> map1){
    if(inS>inE)
        return null;
-   int root = pre[preS];
-  BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
+   final int root = pre[preS];
+  final BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
    int j=inS;
    // for(int i = inS;i<inE;i++)
    // {
@@ -291,16 +291,16 @@ public static BinaryTreeNode<Integer>
    //         break;
    // }
      j=map1.get(root);
-   int leftInI = inS;
-   int leftEnI = j-1;
-   int rightInI=j+1;
-   int rightInE=inE;
+   final int leftInI = inS;
+   final int leftEnI = j-1;
+   final int rightInI=j+1;
+   final int rightInE=inE;
    
-   int leftpreI = preS+1;
-   int length = leftEnI - leftInI+1;
-   int leftpreE = leftpreI + length-1;
-   int rightpreI=leftpreE+1;
-   int rightpreE=preE;
+   final int leftpreI = preS+1;
+   final int length = leftEnI - leftInI+1;
+   final int leftpreE = leftpreI + length-1;
+   final int rightpreI=leftpreE+1;
+   final int rightpreE=preE;
    
    root1.left = getTreeFromPreorderAndInorderH(pre,in, leftpreI,leftpreE, leftInI,leftEnI,map1);
     root1.right = getTreeFromPreorderAndInorderH(pre,in, rightpreI,rightpreE, rightInI,rightInE,map1);
@@ -312,10 +312,10 @@ public static BinaryTreeNode<Integer>
 
 6.                              CONSTRUCT TREE FROM INORDER AND POSTORDER
 O(n) in best and worst
-public static BinaryTreeNode<Integer> getTreeFromPostorderAndInorder(int[] post,
-int[] in){
+public static BinaryTreeNode<Integer> getTreeFromPostorderAndInorder(final int[] post,
+final int[] in){
 
-HashMap<Integer, Integer> map1 = new HashMap<>();
+final HashMap<Integer, Integer> map1 = new HashMap<>();
 for(int i =0 ;i < in.length;i++)
 {
 map1.put(in[i],i);
@@ -325,12 +325,12 @@ return getTreeFromPostorderAndInorderH(post,in,0,post.length-1,0,in.length-1,map
 }
 
 public static BinaryTreeNode<Integer>
-getTreeFromPostorderAndInorderH(int[] pre, int[] in,int preS,
-                           int preE,int inS,int inE, HashMap<Integer, Integer> map1){
+getTreeFromPostorderAndInorderH(final int[] pre, final int[] in,final int preS,
+                           final int preE,final int inS,final int inE, final HashMap<Integer, Integer> map1){
 if(inS>inE)
 return null;
-int root = pre[preE];
-BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
+final int root = pre[preE];
+final BinaryTreeNode<Integer> root1 = new BinaryTreeNode<Integer>(root);
 int j=inS;
 // for(int i = inS;i<inE;i++)
 // {
@@ -340,16 +340,16 @@ int j=inS;
 //         break;
 // }
 j=map1.get(root);
-int leftInI = inS;
-int leftEnI = j-1;
-int rightInI=j+1;
-int rightInE=inE;
+final int leftInI = inS;
+final int leftEnI = j-1;
+final int rightInI=j+1;
+final int rightInE=inE;
 
-int leftpreI = preS;
-int length = leftEnI - leftInI+1;
-int leftpreE =  leftpreI+length-1;
-int rightpreI=leftpreE+1;
-int rightpreE=preE-1;
+final int leftpreI = preS;
+final int length = leftEnI - leftInI+1;
+final int leftpreE =  leftpreI+length-1;
+final int rightpreI=leftpreE+1;
+final int rightpreE=preE-1;
 
 root1.left = getTreeFromPostorderAndInorderH(pre,in, leftpreI,leftpreE, leftInI,leftEnI,map1);
 root1.right = getTreeFromPostorderAndInorderH(pre,in, rightpreI,rightpreE, rightInI,rightInE,map1);
@@ -361,7 +361,7 @@ return root1;
 
 7.              SUM OF EACH NODE IN A BINARY TREE
 O(N)
-public static int sum(BinaryTreeNode<Integer> root){
+public static int sum(final BinaryTreeNode<Integer> root){
 
       if (root==null)
          return 0;
@@ -373,7 +373,7 @@ public static int sum(BinaryTreeNode<Integer> root){
 7 .B
 */
 static int count1,count;
-public static int sum(BinaryTreeNode<Integer> root){
+public static int sum(final BinaryTreeNode<Integer> root){
     if(root==null)
         return 0;
     count1 +=root.data;
@@ -389,11 +389,11 @@ because in this height in logn
 in worst case skewed tree T(n) = T(n-1) + kn; and complexity is O(n*n)               
                   
 in best case 
-public static boolean checkBalanced(BinaryTreeNode<Integer> root){
+public static boolean checkBalanced(final BinaryTreeNode<Integer> root){
     if(root==null)
       return true;
-    int h1 = height(root.left);
-    int h2 = height(root.right);
+    final int h1 = height(root.left);
+    final int h2 = height(root.right);
     if( (h1-h2 < 1) || (h2-h1 < 1) )
       return false;
 
@@ -403,8 +403,8 @@ public static boolean checkBalanced(BinaryTreeNode<Integer> root){
           return false;
     return true;      
 }
-static int h ;
-public static int checkHeight(BinaryTreeNode<Integer> root){
+static int h;
+public static int checkHeight(final BinaryTreeNode<Integer> root){
     if(root==null)
         return 0;
         h= 1+Math.max(height(root.left)+height(root.right));
@@ -418,7 +418,7 @@ public  static class checkB{
     int height;
 }
 
-public static boolean checkBalanced(BinaryTreeNode<Integer> root){
+public static boolean checkBalanced(final BinaryTreeNode<Integer> root){
 
     if(root==null)
         return true;
@@ -428,18 +428,18 @@ public static boolean checkBalanced(BinaryTreeNode<Integer> root){
 
 
 
-public static checkB checkBalancedH(BinaryTreeNode<Integer> root){
+public static checkB checkBalancedH(final BinaryTreeNode<Integer> root){
     if(root==null)
     {
-        checkB ans = new checkB();
+        final checkB ans = new checkB();
         ans.height=0;
         ans.isBalanced=true;
         return ans;
     }
-    checkB leftans = checkBalancedH(root.left);
+    final checkB leftans = checkBalancedH(root.left);
     if(!leftans.isBalanced)
         return leftans;
-    checkB rightans = checkBalancedH(root.right);
+    final checkB rightans = checkBalancedH(root.right);
     if(!rightans.isBalanced)
         return rightans;
     checkB ans;
@@ -471,9 +471,9 @@ public static checkB checkBalancedH(BinaryTreeNode<Integer> root){
 
 9.                         LEVEL ORDER TRAVERSAL
 O(n)
-public static void printLevelWise(BinaryTreeNode<Integer> root){
+public static void printLevelWise(final BinaryTreeNode<Integer> root){
 		
-    Queue<BinaryTreeNode<Integer>>  q = new LinkedList<>(); 
+    final Queue<BinaryTreeNode<Integer>>  q = new LinkedList<>(); 
     q.add(root);
     while(1==1)
     {
@@ -485,7 +485,7 @@ public static void printLevelWise(BinaryTreeNode<Integer> root){
             return;
        while(newnode-->0)
        {
-           BinaryTreeNode<Integer> node=q.peek();
+           final BinaryTreeNode<Integer> node=q.peek();
            System.out.print(node.data+" ");
            if(node.left!=null)
                q.add(node.left);
@@ -533,7 +533,7 @@ while(!primary.isEmpty())
 
 10.                      REMOVE LEAF NODE
 
-public static BinaryTreeNode<Integer> removeAllLeaves(BinaryTreeNode<Integer> root){
+public static BinaryTreeNode<Integer> removeAllLeaves(final BinaryTreeNode<Integer> root){
     if(root==null)
     {
         return null;
@@ -552,16 +552,16 @@ public static BinaryTreeNode<Integer> removeAllLeaves(BinaryTreeNode<Integer> ro
 11.                  LEVEL WISE LinkedList
 O(n)
 https://classroom.codingninjas.com/app/classroom/me/978/content/14947/offering/132898/problem/78
-public static ArrayList<Node<BinaryTreeNode<Integer>>> LLForEachLevel(BinaryTreeNode<Integer> root) {
+public static ArrayList<Node<BinaryTreeNode<Integer>>> LLForEachLevel(final BinaryTreeNode<Integer> root) {
 		
     if(root==null)
     {
-        ArrayList<Node<BinaryTreeNode<Integer>>> arr = null;
+        final ArrayList<Node<BinaryTreeNode<Integer>>> arr = null;
         return arr;
     }
    
-   Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
-    ArrayList<Node<BinaryTreeNode<Integer>>> arr = new ArrayList<>();
+   final Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+    final ArrayList<Node<BinaryTreeNode<Integer>>> arr = new ArrayList<>();
    q.add(root);
    while(1==1)
    {
@@ -573,7 +573,7 @@ public static ArrayList<Node<BinaryTreeNode<Integer>>> LLForEachLevel(BinaryTree
        Node<BinaryTreeNode<Integer>> head=null;
        while(size-->0)
        {
-           BinaryTreeNode<Integer> tmp = q.poll();
+           final BinaryTreeNode<Integer> tmp = q.poll();
            if(head==null)
            {
                head= new Node<BinaryTreeNode<Integer>>(tmp);
@@ -585,7 +585,7 @@ public static ArrayList<Node<BinaryTreeNode<Integer>>> LLForEachLevel(BinaryTree
                {
                    temp=temp.next;
                }
-              Node node= new Node<BinaryTreeNode<Integer>>(tmp);
+              final Node node= new Node<BinaryTreeNode<Integer>>(tmp);
                temp.next = node;
            }
             
@@ -605,7 +605,7 @@ space = O(n)+O(n-1)
 using queue and stack
 https://classroom.codingninjas.com/app/classro
 // om/me/978/content/14947/offering/132898/problem/82
-public static void printZigZag(BinaryTreeNode<Integer> root) {
+public static void printZigZag(final BinaryTreeNode<Integer> root) {
 
     //  best sol
   QueueUsingLL<BinaryTreeNode<Integer>> q = new QueueUsingLL<>();
@@ -649,16 +649,16 @@ public static void printZigZag(BinaryTreeNode<Integer> root) {
 12.B
 complexity same
 using two stacks
-public static void printZigZag(BinaryTreeNode<Integer> root) {
+public static void printZigZag(final BinaryTreeNode<Integer> root) {
 
     //  best sol
-  Stack<BinaryTreeNode<Integer>> s1 = new Stack<>();
-      Stack<BinaryTreeNode<Integer>> s2 = new Stack<>();
+  final Stack<BinaryTreeNode<Integer>> s1 = new Stack<>();
+      final Stack<BinaryTreeNode<Integer>> s2 = new Stack<>();
       s1.push(root);
       int count=2;
       while(!s1.isEmpty())
       {
-        BinaryTreeNode<Integer> tmp = s1.pop();
+        final BinaryTreeNode<Integer> tmp = s1.pop();
         if(count%2==0)
         System.out.print(tmp.data+" ");
         if(tmp.left!=null)
@@ -669,7 +669,7 @@ public static void printZigZag(BinaryTreeNode<Integer> root) {
           {System.out.println();
             while(!s2.isEmpty())
             {
-              BinaryTreeNode<Integer> tmp1= s2.pop();
+              final BinaryTreeNode<Integer> tmp1= s2.pop();
                 s1.push(tmp1);
                 if(count%2==0)
                 System.out.print(tmp1.data+" ");
@@ -679,7 +679,47 @@ public static void printZigZag(BinaryTreeNode<Integer> root) {
           }  
       }
    }}
- 
+
+ 12.C
+ class Solution {
+	public static void printZigZag(BinaryTreeNode<Integer> root) {
+
+		//  best sol
+		Stack<BinaryTreeNode<Integer>> s1 = new Stack<>();
+		Stack<BinaryTreeNode<Integer>> s2 = new Stack<>();
+		s1.push(root);
+		// int count=2;
+		while(!s1.isEmpty())
+		{
+			BinaryTreeNode<Integer> tmp = s1.pop();
+			// if(count%2==0)
+			System.out.print(tmp.data+" ");
+			if(tmp.left!=null)
+				s2.push(tmp.left);
+			if(tmp.right!=null)
+				s2.push(tmp.right);
+
+			if(s1.isEmpty())
+			{
+				System.out.println();
+				while(!s2.isEmpty())
+				{
+					BinaryTreeNode<Integer> tmp1= s2.pop();
+					if(tmp1.right!=null)
+						s1.push(tmp1.right);
+					if(tmp1.left!=null)
+						s1.push(tmp1.left);
+					System.out.print(tmp1.data+" ");
+				}
+				// System.out.println();
+				// count++;
+				System.out.println();
+			}  
+		}
+
+
+	}}
+
    
 
   13.                      NODES WITOUT SIBLINGS
@@ -701,6 +741,69 @@ public static void printZigZag(BinaryTreeNode<Integer> root) {
   
       }
   }
+  15.                                VERTICLE ORDER TRAVERSING
+  import java.util.*;
+import java.util.Map.Entry;
+import java.io.*;
+class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        class QueueObj
+        {
+            TreeNode root;
+            int hd ;
+            QueueObj(TreeNode root ,int hd)
+            {
+                this.root = root;
+                this.hd = hd;
+            }
+        }
+        TreeMap<Integer,PriorityQueue<Integer>> m = new TreeMap<>();    
+        Queue<QueueObj> q = new LinkedList<>();
+        q.add(new QueueObj(root,0));
+        List<Integer> ls = new LinkedList<>();
+        ls.add(root.val);
+        // m.put(0,ls);
+        while(!q.isEmpty())
+        {
+            int s = q.size();
+            while(s-->0)
+            {
+                QueueObj tmp = q.poll();
+                if(tmp.root.left!=null)
+                {
+                    q.add(new QueueObj( tmp.root.left ,tmp.hd-1));
+                }
+                if(tmp.root.right!=null)
+                {
+                    q.add(new QueueObj( tmp.root.right ,tmp.hd+1));
+                }
+                PriorityQueue<Integer> l = m.get(tmp.hd);
+                if(l == null)
+                {
+                    l = new PriorityQueue<>();
+                    l.add(tmp.root.val);
+                }
+                else
+                    l.add(tmp.root.val);
+                m.put(tmp.hd,l);
+            }
+            
+        }
+        List<List<Integer>>  lst = new ArrayList<>();
+       for (Entry<Integer, PriorityQueue<Integer>> entry : m.entrySet()) 
+        { 
+             PriorityQueue<Integer> pq = entry.getValue(); 
+            List<Integer> g = new ArrayList<>();
+            while(!pq.isEmpty())
+            {
+                g.add(pq.poll());
+            }
+           lst.add(g);
+        } 
+        return lst;
+    }
+}
+
 
   14. iterartive                     LEFT VIEW OF THE TREE
 
@@ -1081,6 +1184,71 @@ class View
     }
 }
 
+17. recur                            RIGHT VIEW OF A TREE
+
+public List<Integer> rightSideView(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    rightSideView(root, result, 0);
+    return result;
+}
+public void rightSideView(TreeNode root, List<Integer> result, int depth){
+    if(root == null) return;
+    if(depth == result.size()) result.add(root.val);
+    rightSideView(root.right, result, depth+1);
+    rightSideView(root.left, result, depth+1);
+}
+
+iterative
+17.b
+import java.util.*;
+class Solution {
+    
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> lst = new LinkedList<Integer>();
+        leftv(lst,root);
+        return lst;
+    }
+    public void leftv(List<Integer> lst , TreeNode root)
+    {
+        if(root ==null) return;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty() )
+        {
+            int s =q.size();
+            int n = s;
+            while(s-->0)
+            {
+                TreeNode tmp = q.poll();
+                if(s==0)
+                    lst.add(tmp.val);
+                if(tmp.left!=null) q.add(tmp.left);
+                 if(tmp.right!=null) q.add(tmp.right);
+            }
+        }
+    }
+}
+
+
+17.c
+public List<Integer> rightSideView(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    Deque<TreeNode> q = new LinkedList<>();
+    if(root == null) return result;
+    q.add(root);
+    while(!q.isEmpty()){
+        int size = q.size();
+        result.add(q.getLast().val);
+        for(int i = 0; i<size; i++){
+            TreeNode curr = q.poll();
+            if(curr.left!=null) q.add(curr.left);
+            if(curr.right!=null) q.add(curr.right);
+        }
+    }
+
+
+
+    
 
 17.                             FIND LCA
 https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
@@ -1122,7 +1290,7 @@ class Solution {
  }
 
  17.B
- O(n)
+ O(n) leetcode
  best approach but not works in onE value is not there 
  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     if (root == null) 
@@ -1223,3 +1391,120 @@ int findMaxUtil(Node node, Res res)
     try this
 
     https://www.geeksforgeeks.org/find-largest-sum-digits-divisors-n/
+
+
+21.                  BOTTOM UP TRAVERSAL
+    
+21.A 
+IT RETURN  list if print it can be directly 
+actually it copied from leetcode but i wrote a different approach but leetcode wali bst ha
+public static List<List<Integer>> levelOrderBottom(BinaryNode<Integer> root) {
+    Queue<BinaryNode<Integer>> q = new LinkedList<>();
+    List<List<Integer>> res = new LinkedList<List<Integer>>();
+    q.add(root);
+    while(!q.isEmpty())
+    {
+        int level = q.size();
+        List<Integer> sublist = new LinkedList<Integer>();
+        for(int i=0; i<level; i++){
+            if(q.peek().left!=null) q.offer(q.peek().left);
+            if(q.peek().right!=null) q.offer(q.peek().right);
+            sublist.add(q.poll().data);
+        }
+        res.add(0, sublist);
+    }
+//	        List<List<Integer>> arr = new ArrayList<>();
+
+
+//3 9 20 -1 -1 15 7 -1 -1 -1 -1	        
+    return res;
+}
+
+21.B
+public static List<List<Integer>> levelOrderBottom(BinaryNode<Integer> root) {
+    Queue<BinaryNode<Integer>> q = new LinkedList<>();
+    Stack<BinaryNode<Integer>> s = new Stack<>();
+    q.add(root);
+    while(!q.isEmpty())
+    {
+        // int size = q.size();
+        q.add(null);
+        // if(size == 0) break;
+        BinaryNode<Integer> tmp = q.poll();
+        s.push(tmp);
+        if(!q.isEmpty())
+        {
+             if(tmp == null)
+             {
+                 tmp = q.poll();
+                 s.push(tmp);
+             }
+             if(tmp!=null && tmp.right!=null) q.add(tmp.right);
+             if(tmp!=null && tmp.left!=null) q.add(tmp.left);
+        }
+        
+    }
+    List<List<Integer>> arr = new ArrayList<>();
+    int size = s.size();
+    for(int i =0 ; i<size;i++ )
+    {
+        arr.add(new ArrayList());
+        if(s.peek() == null ) s.pop();
+        while(s.peek()!=null)
+        {
+            arr.get(i).add(s.pop().data);
+        }
+    }
+//3 9 20 -1 -1 15 7 -1 -1 -1 -1	        
+    return arr;
+}
+
+21.
+dfs 
+but gfg have different approach
+
+class Solution {
+    static List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        res = new ArrayList<>();
+        helper(root,0);
+        Collections.reverse(res);
+        return res;
+    }
+    void helper(TreeNode root,int level){
+        if(root == null){
+            return;
+        }
+        while(res.size() <= level){
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.val);
+        helper(root.left,level + 1);
+        helper(root.right,level + 1);
+    }
+}
+
+
+22.                             BOTTOM UP TRAVERSAL
+
+public static List<List<Integer>> levelOrderBottom(BinaryNode<Integer> root) {
+    Queue<BinaryNode<Integer>> q = new LinkedList<>();
+    List<List<Integer>> res = new LinkedList<List<Integer>>();
+    q.add(root);
+    while(!q.isEmpty())
+    {
+        int level = q.size();
+        List<Integer> sublist = new LinkedList<Integer>();
+        for(int i=0; i<level; i++){
+            if(q.peek().left!=null) q.offer(q.peek().left);
+            if(q.peek().right!=null) q.offer(q.peek().right);
+            sublist.add(q.poll().data);
+        }
+        res.add(0, sublist);
+    }
+//	        List<List<Integer>> arr = new ArrayList<>();
+
+
+//3 9 20 -1 -1 15 7 -1 -1 -1 -1	        
+    return res;
+}

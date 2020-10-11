@@ -7,8 +7,8 @@ package Binarytree;
     {
         this.data=data;
     }
+    
    T data;
    BinaryTreeNode<T> left;
    BinaryTreeNode<T> right;
-
 }

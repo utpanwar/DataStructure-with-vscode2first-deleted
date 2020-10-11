@@ -1,4 +1,0 @@
-ngOnInit()
-This lifecycle hook is called after the component is loaded and all the data-bound 
-properties are set and it is called only once when the component is loaded into the 
-DOM. We don’t have to implement this interface OnInit Angular implements it whether you implement or not.
