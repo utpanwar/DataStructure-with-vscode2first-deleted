@@ -220,7 +220,7 @@ E:\CN\Data Structure with java\11.binary tree
 
 
 5.                CONSTRUCT TREE FROM INORDER AND PREORDER
-
+3
 1. O(nlogn) in best t(n)=2T(n/2)+ kn;
    (n^2) in left skewed t(n)=T(n-1)+ kn;
 
@@ -721,7 +721,7 @@ public static void printZigZag(final BinaryTreeNode<Integer> root) {
 	}}
 
    
-
+txk
   13.                      NODES WITOUT SIBLINGS
   O(n)
   import java.util.ArrayList;
@@ -1507,4 +1507,121 @@ public static List<List<Integer>> levelOrderBottom(BinaryNode<Integer> root) {
 
 //3 9 20 -1 -1 15 7 -1 -1 -1 -1	        
     return res;
+}
+
+
+
+23.                     ITERATIVE INORDER TRAVERSAL
+seee on leetcode moris traversal
+https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer>  res = new LinkedList<>();
+        if(root == null) 
+            return res;
+        TreeNode curr = root;
+        Stack<TreeNode> s = new Stack<>();
+        // s.push(root)=4321`
+        while(curr!= null || !s.isEmpty())
+        {
+            while(curr != null)
+            {
+                s.push(curr);
+                curr = curr.left;
+            }   
+            TreeNode tmp = s.pop();
+            res.add(tmp.val);
+            if(tmp.right!= null)
+                curr = tmp.right;
+        }
+        return res;
+    }
+}
+
+24.                         ITERATOR PREORDER TREE
+https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root)
+    {
+        List<Integer>  res = new LinkedList<>();
+        if(root == null) 
+            return res;
+        TreeNode curr = root;
+        Stack<TreeNode> s = new Stack<>();
+        while(curr!= null || !s.isEmpty())
+        {
+            while(curr != null)
+            {
+                res.add(curr.val);
+                s.push(curr);
+                curr = curr.left;
+            }
+            TreeNode tmp = s.pop();
+            // res.add(tmp.val);
+            if(tmp.right!= null)
+            {
+                 // res.add(tmp.right.val);
+                 curr = tmp.right;
+            }
+               
+        }
+        return res;
+    }
+}
+
+24.b
+geeks approach
+while (curr != null || !st.isEmpty()) 
+    { 
+          
+        // Print left children while exist  
+        // and keep pushing right into the   
+        // stack.  
+        while (curr != null) 
+        { 
+            System.out.print(curr.data + " "); 
+              
+            if (curr.right != null) 
+                st.push(curr.right); 
+                  
+            curr = curr.left; 
+        } 
+          
+        // We reach when curr is NULL, so We  
+        // take out a right child from stack  
+        if (!st.isEmpty())  
+        { 
+            curr = st.pop(); 
+        } 
+    } 
+} 
+
+25.                     POSTORDER ITERATIVE
+https://leetcode.com/problems/binary-tree-postorder-traversal/discuss/45648/three-ways-of-iterative-postorder-traversing-easy-explanation
+see this link has different solutions
+
+public List<Integer> postorderTraversal(TreeNode root) {
+    List<Integer> out = new ArrayList<Integer>();
+    if(root==null)
+        return out;
+    TreeNode pre=null;
+    Stack<TreeNode> s = new Stack();      
+    while(root!=null || !s.empty()){
+        if(root!=null){				
+            s.push(root);
+            root = root.left;
+        }
+        else{
+            root = s.peek();
+            if(root.right==null || root.right==pre){
+                out.add(root.val);
+                s.pop();
+                pre=root;
+                root = null;
+            }
+            else
+                root = root.right;
+        }
+    }
+    return out;
 }
