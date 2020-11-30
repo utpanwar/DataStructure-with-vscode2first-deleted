@@ -131,7 +131,7 @@ public class Solution {
 }
 
 
-4.                              FIND A NODE ONDEX IN A LL
+4.                              FIND A NODE INDEX IN A LL
 public static int indexOfNIter(LinkedListNode<Integer> head, int n) {
     int i=0;
    while(head!=null&&head.data!=n)
@@ -146,7 +146,7 @@ public static int indexOfNIter(LinkedListNode<Integer> head, int n) {
  return -1;
 }
 
-5.                              APPEND LASTNTOFIRST
+5.                              APPEND LAST N NODES  TO FIRST
 
 public static LinkedListNode<Integer> appendLastNToFirst(LinkedListNode<Integer> head, int n)
 {

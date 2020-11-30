@@ -26,7 +26,7 @@ class Solution {
 }
 
 1.b
-
+sorting 
 import java.util.*;
 class Solution {
     public int findDuplicate(int[] nums) {
@@ -43,7 +43,27 @@ class Solution {
 
 1.c
 
+import java.util.*;
+class Solution {
+    public int findDuplicate(int[] nums) {
  
+      int slow = nums[0];
+      int fast = nums[0];
+        do
+        {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }while(slow!=fast);
+        
+        fast = nums[0];
+        while(slow!=fast)
+        {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
+}
+}
 
 
 
@@ -106,45 +126,6 @@ public class MaxRepeating {
 }
 
 
-
-
-
-
-3.                              FIND THE DUPLICATE NUMBER
-import java.util.*;
-class Solution {
-    public int findDuplicate(int[] nums) {
-    //     // Arrays.sort(nums);
-    //     HashMap<Integer , Integer > m = new HashMap<>();
-    //     for(int i =0 ;i <nums.length; i++)
-    //     {
-    //         if(m.containsKey(nums[i]))
-    //         {
-    //            return  nums[i];
-    //         }
-    //        else m.put(nums[i] , i); 
-    //     }  
-    //           return 0;
-    // }
-      int slow = nums[0];
-      int fast = nums[0];
-        do
-        {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-        }while(slow!=fast);
-        
-        fast = nums[0];
-        while(slow!=fast)
-        {
-            slow = nums[slow];
-            fast = nums[fast];
-        }
-        return slow;
-}
-}
-
-
 4.                                  SORT 0 1 2 
 
 class Solution {
@@ -181,6 +162,43 @@ class Solution {
     }
 }
 
+4.b
+correct upper is wrong
+class Solution {
+    public void sortColors(int[] a) {
+        int low = 0;
+        int mid = 0;
+        int high = a.length-1;
+       while(mid <= high)
+        {
+            if(a[mid]==0)
+            {
+                 int tmp = a[low];
+                 a[low] = a[mid];
+                 a[mid] = tmp;
+                 low++;
+                 mid++;
+            }
+            else if(a[mid] ==1)
+            {
+                mid++;
+            }
+//             else if(a[low] > a[mid])
+//             {
+              
+//                 mid++;
+//             }
+            // if(a[mid] == 2)
+           else
+            {
+                int tmp = a[mid];
+                a[mid] = a[high];
+                a[high] = tmp;
+                high--;
+            }
+        }
+    }
+}
 
 5.                  FIND THE MISSING AND REAPTING
 
@@ -196,27 +214,66 @@ xor
 
 
 6.                              MERGE TWO SORTED Arrays
-o(N*M)
+
+ 2 ms
+ o(N*M)
 N IS traversing of a1 and m is ordering of a2
-int j = 0;
-if(n == 0 || m ==0) return;
-for(int i =0 ; i< m ; i++)
-{
-    if(nums1[i] > nums2[j])
-    {
-        int tmp = nums1[i];
-        nums1[i] = nums2[j];
-        nums2[j] = tmp;
-        // System.out.print(nums1[i]+" ");
-        Arrays.sort(nums2);
+import java.util.*;
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int j = 0;
+        if(n == 0 && m ==0) return;
+         if(m == 0 || n==0)
+        {
+            if(m == 0)
+            {
+                for(int i = 0 ; i<n; i++)
+                {
+                    nums1[i] = nums2[i];
+                }
+            }
+          // else
+          //   {
+          //       for(int i = 0 ; i<m; i++)
+          //       {
+          //           nums2[i] = nums1[i];
+          //       }
+          //   } 
+             return;
+        }
+        
+        for(int i =0 ; i< m; i++)
+        {
+            if(nums1[i] > nums2[j])
+            {
+                int tmp = nums1[i];
+                nums1[i] = nums2[j];
+                nums2[j] = tmp;
+                // System.out.print(nums1[i]+" ");
+                Arrays.sort(nums2);
+            }
+            // else System.out.print(nums1[i]+" ");
+        }
+        // for(int a : nums2)
+        //     System.out.print(a+" ");
+       
+        for(int i =m; i<m+n; i++)
+        {
+            nums1[i] = nums2[i-m];
+        }
     }
-    // else System.out.print(nums1[i]+" ");
+    
 }
-// for(int a : nums2)
-//     System.out.print(a+" ");
-for(int i =m; i<m+n; i++)
-{
-    nums1[i] = nums2[i-n];
+
+6. c
+0 ms
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        for(int i = 0; i<n; i++){         // We choose these
+            nums1[nums1.length - 1 - i] = nums2[i];  //working backwards, 
+        }
+        Arrays.sort(nums1); //the order does n
+    }
 }
 
 
@@ -273,6 +330,7 @@ class Solu {
 https://leetcode.com/problems/set-matrix-zeroes/submissions/
 8.A. IF matrix have only positive elements
 O(n*m)+O(n+m)+O(1)
+bruteforce
 class Solution {
     public void setZeroes(int[][] m) {
         for(int i =0 ; i<m.length; i++)
@@ -307,6 +365,7 @@ class Solution {
 8.b
 it passes all the test cases
 O(n*m + n*m)+O(n)+O(m)
+two corresponding arrays
 class Solution {
     public void setZeroes(int[][] m) {
         int a[] = new int[m.length];
@@ -394,7 +453,8 @@ static void changeTheArray(int[][] arr, int i, int j)
 }
 
 8 d.
-2. O(n*m) + O(1)
+2. O(n*m + m*m) + O(1)
+  inside make the tmp array
 class Solution {
     public void setZeroes(int[][] m) {
         boolean col = true;
@@ -429,6 +489,32 @@ class Solution {
             
         // System.out.print(col);
      }
+
+
+Q.                          PASCAL TRIANGLE
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new LinkedList<>();
+          List<Integer> ans ,pre = null ;
+        for(int i = 0 ; i< numRows; i++)
+        {
+            ans = new LinkedList<>();
+            // ans.add(1);
+            for(int j = 0; j <=i; j++)
+            {
+                // int a = 
+                if(j == 0 || j== i)
+                    ans.add(1);
+                else ans.add(pre.get(j-1) + pre.get(j));
+            }
+            // ans.add(1);
+            pre = ans;
+            res.add(ans);
+        }
+        return res;
+    }
+}
+
 
 9.                          NEXT PERMUTATION
 

@@ -57,7 +57,7 @@ class Solution {
 
         if(root.left!=null && root.right==null && root.next!=null)
             root.left.next = root.next.left;
-//    above line handles when it is not haing right pointer         
+//    above line handles when it is not having right pointer         
         nextPointer(root.left);
           nextPointer(root.right);
         return;
@@ -136,8 +136,28 @@ Node constructTreeUtil(int pre[], Index preIndex, int low, int high, int size) {
 
 }
 
-
-
+3.b
+https://leetcode.com/problems/construct-binar
+y-search-tree-from-preorder-traversal/discuss/873759/Java-0ms-solution-Recursive-solution
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return construct(preorder,0,preorder.length-1);
+    }
+    public TreeNode construct(int[] preorder,int l,int r){
+        if(l>r)return null;
+        
+        TreeNode node=new TreeNode(preorder[l]);
+        int i=l+1;
+        while(i<preorder.length&&preorder[i]<=preorder[l]){
+           i++;
+        }
+        node.left=construct(preorder,l+1,i-1);
+        node.right=construct(preorder,i,r);
+        return node;
+    }
+}
+3.https://leetcode.com/problems/construct-binary-search
+-tree-from-preorder-traversal/discuss/589801/JAVA-3-WAYS-TO-DO-THE-PROBLEM!-O(N)-APPROACH
 
 
 
@@ -545,6 +565,201 @@ fun(root)
 
 
 10.                    INORDER TRAVERSAL WITHOUT RECURSION
+
+
+10.                     PAIR WITH A GIVEN SUM
+// Java implementation of the approach
+import java.util.*;
+
+class GFG
+{
+
+// Node of the binary tree
+static class node 
+{
+	int data;
+	node left;
+	node right;
+	node(int data)
+	{
+		this.data = data;
+		left = null;
+		right = null;
+	}
+};
+
+// Function to find a pair with given sum
+static boolean existsPair(node root, int x)
+{
+	// Iterators for BST
+	Stack<node > it1 = new Stack<node>(), it2 = new Stack<node>();
+
+	// Initializing forward iterator
+	node c = root;
+	while (c != null)
+	{
+		it1.push(c);
+		c = c.left;
+	}
+
+	// Initializing backward iterator
+	c = root;
+	while (c != null)
+	{
+		it2.push(c);
+		c = c.right;
+	}
+		
+	// Two pointer technique
+	while (it1.peek() != it2.peek()) 
+	{
+
+		// Variables to store values at
+		// it1 and it2
+		int v1 = it1.peek().data, v2 = it2.peek().data;
+
+		// Base case
+		if (v1 + v2 == x)
+			return true;
+
+		// Moving forward pointer
+		if (v1 + v2 < x) 
+		{
+			c = it1.peek().right;
+			it1.pop();
+			while (c != null)
+			{
+				it1.push(c); 
+				c = c.left;
+			}
+		}
+
+		// Moving backward pointer
+		else
+		{
+			c = it2.peek().left;
+			it2.pop();
+			while (c != null)
+			{
+				it2.push(c);
+				c = c.right;
+			}
+		}
+	}
+	
+	// Case when no pair is found
+	return false;
+}
+
+// Driver code
+public static void main(String[] args)
+{
+	node root = new node(5);
+	root.left = new node(3);
+	root.right = new node(7);
+	root.left.left = new node(2);
+	root.left.right = new node(4);
+	root.right.left = new node(6);
+	root.right.right = new node(8);
+
+	int x = 5;
+
+	// Calling required function
+	if (existsPair(root, x))
+		System.out.print("Yes");
+	else
+		System.out.print("No");
+
+}
+}
+
+// This code is contributed by 29AjayKumar
+
+10.b
+// JAVA program to find a pair with 
+// given sum using hashing 
+
+import java.util.*; 
+
+class GFG 
+{ 
+
+	static class Node 
+	{ 
+		int data; 
+		Node left, right; 
+	}; 
+
+	static Node NewNode(int data) 
+	{ 
+		Node temp = new Node(); 
+		temp.data = data; 
+		temp.left = null; 
+		temp.right = null; 
+		return temp; 
+	} 
+
+	static Node insert(Node root, int key) 
+	{ 
+		if (root == null) 
+			return NewNode(key); 
+		if (key < root.data) 
+			root.left = insert(root.left, key); 
+		else
+			root.right = insert(root.right, key); 
+		return root; 
+	} 
+
+	static boolean findpairUtil(Node root, int sum, 
+								HashSet<Integer> set) 
+	{ 
+		if (root == null) 
+			return false; 
+
+		if (findpairUtil(root.left, sum, set)) 
+			return true; 
+
+		if (set.contains(sum - root.data)) 
+		{ 
+			System.out.println("Pair is found (" + 
+								(sum - root.data) + 
+								", " + root.data + ")"); 
+			return true; 
+		} 
+		else
+			set.add(root.data); 
+
+		return findpairUtil(root.right, sum, set); 
+	} 
+
+	static void findPair(Node root, int sum) 
+	{ 
+		HashSet<Integer> set = new HashSet<Integer>(); 
+		if (!findpairUtil(root, sum, set)) 
+			System.out.print("Pairs do not exit" + "\n"); 
+	} 
+
+	// Driver code 
+	public static void main(String[] args) 
+	{ 
+		Node root = null; 
+		root = insert(root, 15); 
+		root = insert(root, 10); 
+		root = insert(root, 20); 
+		root = insert(root, 8); 
+		root = insert(root, 12); 
+		root = insert(root, 16); 
+		root = insert(root, 25); 
+		root = insert(root, 10); 
+
+		int sum = 33; 
+		findPair(root, sum); 
+
+	} 
+} 
+
+// This code is contributed by PrinciRaj1992 
+
 
 11.                    BST ITERATOR
 

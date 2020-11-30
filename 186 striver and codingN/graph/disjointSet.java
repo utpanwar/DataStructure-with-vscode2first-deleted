@@ -9,7 +9,7 @@ time - O(n);
 O(n) beacause recur is 2T(n/2) + k
 T(n) = T(n-1) + k; - it is O(n) in skewed tree
 //find is like the virtual tree
-PUBLIC static void find(int key,int parent[])
+public static void find(int key,int parent[])
 {
     if(parent[key] == key)
     return key; // then key itself is a  parent or root repersation it has no childern
