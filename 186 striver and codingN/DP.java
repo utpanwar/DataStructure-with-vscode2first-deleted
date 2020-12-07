@@ -487,5 +487,44 @@ public static void main(String[] args)
 
 // This code is contributed by 29AjayKumar 
 
-12.
+12.                             PALIMDROME PARTITIONING
+print number of partionining
+class Solution{
+    static int palindromicPartition(String str)
+    {
+        if(str.length() == 0) return 0;
+        if(checkP(str)) return 0;
+        return palindromicPartitionH(str);
+    }
+    static int palindromicPartitionH(String s)
+    {
+        if(s.length() == 0) return 0;
+        if(checkP(s)) return 0;
+        int min = Integer.MAX_VALUE;
+        for(int i =0; i <s.length(); i++)
+        {
+            if(checkP(s.substring(0,i+1)))
+            {
+                 min = Math.min(min, 1 + palindromicPartitionH(s.substring(i+1)) );
+            }
+           
+        }
+        return min;
+    }
+    
+    static boolean checkP(String s)
+    {
+        int i = 0;int j = s.length()-1;
+        while(i<j)
+        {
+            if(s.charAt(i) != s.charAt(j) )
+            {
+                return false;
+            }
+            i++;j--;
+        }
+        return true;
+    }
+}
+
 

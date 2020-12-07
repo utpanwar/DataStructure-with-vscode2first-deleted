@@ -255,4 +255,46 @@ class GfG {
     }
     
 }
-   
+
+3.                             WORD BREAK 
+https://leetcode.com/problems/word-break-ii/discuss/958294/DFS-with-Memoization-Code
+these are others solutions see them also
+my  recursive solution
+class Solution {
+    List<String> res = new LinkedList<>();
+    String j = "";
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        HashSet<String> h = new HashSet<>();
+        for(String m : wordDict)
+        {
+            h.add(m);
+        }String ans = "";
+        wordBreakH(s,ans,h);
+        return res;
+    } 
+    public void  wordBreakH(String s ,String ans, HashSet<String> h)
+    {
+          if(s.length() == 0)
+          {
+              ans = ans.substring(0,ans.length()-1);
+              res.add(ans);
+              return;
+          }
+            for(int i =0 ; i<s.length(); i++)
+            {
+                String left = s.substring(0,i+1);
+                if(h.contains(left))
+                {
+                    // j = j + left+" ";
+                    String right = s.substring(i+1);
+                    wordBreakH(right , ans+left+" ", h);
+                    // if(j.length()!=0)
+                    // {
+                    //     j = j.substring(0,j.length()-1);
+                    //     res.add(0,j);
+                    // }    
+                    // j = "";
+                }
+            }
+        }
+    }
